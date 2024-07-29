@@ -22,4 +22,4 @@
 
 1. **Clone Repository**:
    ```bash
-   git clone https://github.com/kouhoang/donghibamgio.git
+   git clone https://github.com/kouhoang/donghobamgio.git

@@ -1,5 +1,7 @@
 package com.example.donghobamgio.viewmodel
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +14,9 @@ class TimerViewModel : ViewModel(), CoroutineScope {
     private var job: Job? = null
     private val timerModel = TimerModel()
     private val _timeLiveData = MutableLiveData<String>()
+    private val _errorLiveData = MutableLiveData<String>()
+    val errorLiveData: LiveData<String> get() = _errorLiveData
+
     val timeLiveData: LiveData<String> get() = _timeLiveData
 
     private val _isRunning = MutableLiveData<Boolean>(false)
@@ -31,7 +36,8 @@ class TimerViewModel : ViewModel(), CoroutineScope {
                     _timeLiveData.postValue(formatTime(timerModel.getTime()))
                 }
             } catch (e: Exception) {
-                // Handle exception
+                Log.e("TimerViewModel", "Error in start coroutine", e)
+                _errorLiveData.postValue("Đã xảy ra lỗi khi khởi động đồng hồ bấm giờ")
             } finally {
                 _isRunning.postValue(false)
             }
